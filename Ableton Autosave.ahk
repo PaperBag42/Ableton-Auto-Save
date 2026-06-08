@@ -16,7 +16,7 @@ CollectAndSaveAbleton()
     {
         Sleep(1000) ; Check your activity status again every 1 second
     }
-        
+
     ; Check if Ableton Live is the active window
     if !WinActive("Ableton Live")
     {
@@ -25,22 +25,20 @@ CollectAndSaveAbleton()
 
     ; Displays a non-intrusive message near your mouse cursor
     ToolTip("Auto-Saving Project...")
+    SetTimer(() => ToolTip(), -2000)
 
     ; 1. Open the File Menu (Alt + F)
     Send("!f")
-    Sleep(200) ; Wait 200ms for menu to drop down
-    
+    Sleep(200) ; Wait for menu to drop down
+
     ; 2. Press 'C' to select "Collect All and Save"
     Send("c")
-    Sleep(200) ; Wait 600ms for the file selection dialog box to pop up
-    
+    Sleep(200) ; Wait for the file selection dialog box to pop up
+
     ; 3. Press Enter to confirm the file collection options
     Send("{Enter}")
-    
+
     ; Sleep(600) ; Wait for potential overwrite confirmations
     ; ; 4. Press Enter again to bypass any "Overwrite?" alerts
     ; Send("{Enter}")
-
-    Sleep(2000) ; Length of message
-    ToolTip()
 }
