@@ -10,7 +10,6 @@ ConfigFile := "ableton_auto_save.ini"
 DefaultSettings := Map(
     "SaveEveryMinutes", 20,
     "IdleSeconds", 10,
-    "CollectAllAndSave", false,
 )
 
 ; 2. Check if configuration file exists
@@ -32,24 +31,26 @@ ShowSetupWindow() {
 
     ; Add Input Fields using defaults
     SetupWindow.AddText("xm", "Every ")
-    SaveIntervalInput := SetupWindow.Add("Edit", "vSaveEveryMinutes x+5 yp-3 Number Center", DefaultSettings[
+    SaveIntervalInput := SetupWindow.Add("Edit", "vSaveEveryMinutes x+ yp-3 Number Center", DefaultSettings[
         "SaveEveryMinutes"])
     SetupWindow.AddText("x+5 yp+3", "minutes")
 
     SetupWindow.AddText("xm", "Wait for me to do nothing for ")
-    IdleSecondsInput := SetupWindow.Add("Edit", "vIdleSeconds x+5 yp-3 Number Center", DefaultSettings["IdleSeconds"])
+    IdleSecondsInput := SetupWindow.Add("Edit", "vIdleSeconds x+ yp-3 Number Center", DefaultSettings["IdleSeconds"])
     SetupWindow.AddText("x+5 yp+3", "seconds")
 
     SetupWindow.AddText("xm", "Then ")
-    SaveMethodInput := SetupWindow.Add("DropDownList", "vSaveMethod x+5 yp-3 Choose1 Center", ["Save",
+    SaveMethodInput := SetupWindow.Add("DropDownList", "vSaveMethod x+ yp-3 Choose1 Center", ["Save",
         "Collect All and Save"])
 
     ; AutostartCheck := MyGui.Add("Checkbox", "vAutostart xm", "Start with Windows")
     ; AutostartCheck.Value := Integer(DefaultSettings["Autostart"])
 
     ; Add Save Button
-    SaveButton := SetupWindow.Add("Button", "w80 xm+35 y+15 default", "Okay")
+    SaveButton := SetupWindow.Add("Button", "xm y+15 default", "Okay")
     SaveButton.OnEvent("Click", SaveSettings)
+    CancelButton := SetupWindow.Add("Button", "x+10 yp", "Cancel")
+    CancelButton.OnEvent("Click", (*) => ExitApp())
 
     SetupWindow.Show()
 
