@@ -6,6 +6,7 @@ Persistent() ; Keeps the script running in the background
 SetTitleMatchMode(2)
 
 ; 1. Define file path and default values
+ConfigVersion := 1
 ConfigFile := "ableton_auto_save.ini"
 DefaultSettings := Map(
     "SaveEveryMinutes", 20,
@@ -13,7 +14,7 @@ DefaultSettings := Map(
 )
 
 ; 2. Check if configuration file exists
-if !FileExist(ConfigFile) {
+if IniRead(ConfigFile, "Options", "Version", 0) != ConfigVersion {
     ShowSetupWindow()
 } else {
     LoadSettingsAndRun()
@@ -31,8 +32,8 @@ ShowSetupWindow() {
 
     ; Add Input Fields using defaults
     SetupWindow.AddText("xm", "Every ")
-    SaveIntervalInput := SetupWindow.Add("Edit", "vSaveEveryMinutes x+ yp-3 Number Center", DefaultSettings[
-        "SaveEveryMinutes"])
+    SaveIntervalInput := SetupWindow.Add(
+        "Edit", "vSaveEveryMinutes x+ yp-3 Number Center", DefaultSettings["SaveEveryMinutes"])
     SetupWindow.AddText("x+5 yp+3", "minutes")
 
     SetupWindow.AddText("xm", "Wait for me to do nothing for ")
@@ -40,11 +41,8 @@ ShowSetupWindow() {
     SetupWindow.AddText("x+5 yp+3", "seconds")
 
     SetupWindow.AddText("xm", "Then ")
-    SaveMethodInput := SetupWindow.Add("DropDownList", "vSaveMethod x+ yp-3 Choose1 Center", ["Save",
-        "Collect All and Save"])
-
-    ; AutostartCheck := MyGui.Add("Checkbox", "vAutostart xm", "Start with Windows")
-    ; AutostartCheck.Value := Integer(DefaultSettings["Autostart"])
+    SaveMethodInput := SetupWindow.Add(
+        "DropDownList", "vSaveMethod x+ yp-3 Choose1 Center", ["Save", "Collect All and Save"])
 
     ; Add Save Button
     SaveButton := SetupWindow.Add("Button", "xm y+15 default", "Okay")
@@ -57,6 +55,7 @@ ShowSetupWindow() {
     ; Nested function to handle saving when button is clicked
     SaveSettings(*) {
         ; Write selections to the INI file
+        IniWrite(ConfigVersion, ConfigFile, "Options", "Version")
         IniWrite(SaveIntervalInput.Value, ConfigFile, "Options", "SaveEveryMinutes")
         IniWrite(IdleSecondsInput.Value, ConfigFile, "Options", "IdleSeconds")
         IniWrite(SaveMethodInput.Value, ConfigFile, "Options", "SaveMethod")
