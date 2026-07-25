@@ -27,6 +27,8 @@ ShowSetupWindow() {
     
     ; Create GUI window
     SetupWindow := Gui("+AlwaysOnTop", "Ableton Auto Save First-Time Setup")
+    SetupWindow.SetFont("s9", "Segoe UI")
+    SetupWindow.OnEvent("Close", (*) => ExitApp())
     
     ; Add Input Fields using defaults
     SetupWindow.AddText("xm", "Every ")
@@ -38,7 +40,7 @@ ShowSetupWindow() {
     SetupWindow.AddText("x+5 yp+3", "seconds")
 
     SetupWindow.AddText("xm", "Then ")
-    SaveMethodInput := SetupWindow.Add("DropDownList", "vSaveMethod x+5 yp-3 Center", ["Save", "Collect All and Save"])
+    SaveMethodInput := SetupWindow.Add("DropDownList", "vSaveMethod x+5 yp-3 Choose1 Center", ["Save", "Collect All and Save"])
     
     ; AutostartCheck := MyGui.Add("Checkbox", "vAutostart xm", "Start with Windows")
     ; AutostartCheck.Value := Integer(DefaultSettings["Autostart"])
