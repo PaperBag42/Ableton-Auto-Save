@@ -29,11 +29,16 @@ ShowSetupWindow() {
     SetupWindow := Gui("+AlwaysOnTop", "Ableton Auto Save First-Time Setup")
     
     ; Add Input Fields using defaults
-    SetupWindow.AddText("w100 xm", "Every :")
-    SaveIntervalInput := SetupWindow.Add("Edit", "vSaveEveryMinutes w150 Number", DefaultSettings["SaveEveryMinutes"])
+    SetupWindow.AddText("xm y+10", "Every ")
+    SaveIntervalInput := SetupWindow.Add("Edit", "vSaveEveryMinutes x+5 yp-3 w60 Number Center", DefaultSettings["SaveEveryMinutes"])
+    SetupWindow.AddText("x+5 yp+3", "minutes")
     
-    SetupWindow.AddText("w100 xm", "Wait for me to do nothing for :")
-    IdleSecondsInput := SetupWindow.Add("Edit", "vIdleSeconds w150 Number", DefaultSettings["IdleSeconds"])
+    SetupWindow.AddText("xm y+10", "Wait for me to do nothing for ")
+    IdleSecondsInput := SetupWindow.Add("Edit", "vIdleSeconds x+5 yp-3 w60 Number Center", DefaultSettings["IdleSeconds"])
+    SetupWindow.AddText("x+5 yp+3", "seconds")
+
+    SetupWindow.AddText("xm y+10", "Then ")
+    SaveMethodInput := SetupWindow.Add("DropDownList", "vSaveMethod x+5 yp-3 w60 Center", ["Save", "Collect All and Save"])
     
     ; AutostartCheck := MyGui.Add("Checkbox", "vAutostart xm", "Start with Windows")
     ; AutostartCheck.Value := Integer(DefaultSettings["Autostart"])
@@ -49,6 +54,7 @@ ShowSetupWindow() {
         ; Write selections to the INI file
         IniWrite(SaveIntervalInput.Value, ConfigFile, "Options", "SaveEveryMinutes")
         IniWrite(IdleSecondsInput.Value, ConfigFile, "Options", "IdleSeconds")
+        IniWrite(SaveMethodInput.Value, ConfigFile, "Options", "SaveMethod")
         
         SetupWindow.Destroy()
         LoadSettingsAndRun()
