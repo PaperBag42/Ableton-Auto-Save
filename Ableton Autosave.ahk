@@ -1,18 +1,76 @@
 ﻿#Requires AutoHotkey v2.0
+#SingleInstance Force
 Persistent() ; Keeps the script running in the background
 
 ; Set Title Match Mode to 2 (Matches if the string occurs anywhere in the title)
 SetTitleMatchMode(2)
 
-; Set a timer to run every 5 minutes (300,000 milliseconds)
-SetTimer(CollectAndSaveAbleton, 300000)
-; SetTimer(CollectAndSaveAbleton, 3000)
+; 1. Define file path and default values
+ConfigFile := "ableton_auto_save.ini"
+DefaultSettings := Map(
+    "SaveEveryMinutes", 20,
+    "IdleSeconds", 10,
+    "CollectAllAndSave", false,
+)
+
+; 2. Check if configuration file exists
+if !FileExist(ConfigFile) {
+    ShowSetupWindow()
+} else {
+    LoadSettingsAndRun()
+}
+
+; --- FUNCTIONS ---
+
+ShowSetupWindow() {
+    global ConfigFile, DefaultSettings
+    
+    ; Create GUI window
+    SetupWindow := Gui("+AlwaysOnTop", "Ableton Auto Save First-Time Setup")
+    
+    ; Add Input Fields using defaults
+    SetupWindow.AddText("w100 xm", "Every :")
+    SaveIntervalInput := SetupWindow.Add("Edit", "vSaveEveryMinutes w150 Number", DefaultSettings["SaveEveryMinutes"])
+    
+    SetupWindow.AddText("w100 xm", "Wait for me to do nothing for :")
+    IdleSecondsInput := SetupWindow.Add("Edit", "vIdleSeconds w150 Number", DefaultSettings["IdleSeconds"])
+    
+    ; AutostartCheck := MyGui.Add("Checkbox", "vAutostart xm", "Start with Windows")
+    ; AutostartCheck.Value := Integer(DefaultSettings["Autostart"])
+    
+    ; Add Save Button
+    SaveButton := SetupWindow.Add("Button", "w80 xm+35 y+15 default", "Okay")
+    SaveButton.OnEvent("Click", SaveSettings)
+    
+    SetupWindow.Show()
+    
+    ; Nested function to handle saving when button is clicked
+    SaveSettings(*) {
+        ; Write selections to the INI file
+        IniWrite(SaveIntervalInput.Value, ConfigFile, "Options", "SaveEveryMinutes")
+        IniWrite(IdleSecondsInput.Value, ConfigFile, "Options", "IdleSeconds")
+        
+        SetupWindow.Destroy()
+        LoadSettingsAndRun()
+    }
+}
+
+LoadSettingsAndRun() {
+    global ConfigFile
+    
+    ; Read the saved values from the INI file
+    SaveEveryMinutes := IniRead(ConfigFile, "Options", "SaveEveryMinutes")
+    
+    SetTimer(CollectAndSaveAbleton, SaveEveryMinutes * 60 * 1000)
+}
 
 CollectAndSaveAbleton()
 {
+    IdleSeconds := IniRead(ConfigFile, "Options", "IdleSeconds")
+
     ; Wait until the user has been completely idle for 10 seconds (10,000 ms)
     ; This loop pauses the script's save sequence if you are actively working
-    while (A_TimeIdle < 10000)
+    while (A_TimeIdle < IdleSeconds * 1000)
     {
         Sleep(1000) ; Check your activity status again every 1 second
     }
