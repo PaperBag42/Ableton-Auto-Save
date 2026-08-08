@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0
 
 ConfigVersion := 1
-ConfigFile := "ableton_auto_save.ini"
+ConfigDir := A_AppData . "\AbletonAutoSave"
+ConfigFile := ConfigDir . "\ableton_auto_save.ini"
 DefaultSettings := Map(
     "SaveEveryMinutes", 20,
     "IdleSeconds", 10,
@@ -57,6 +58,10 @@ ShowSetupWindow(Callback) {
         SaveEveryMinutes := SaveIntervalInput.Value
         IdleSeconds := IdleSecondsInput.Value
         CollectAllAndSave := SaveMethodInput.Value == 2
+
+        if !DirExist(ConfigDir) {
+            DirCreate(ConfigDir)
+        }
 
         ; Write selections to the INI file
         IniWrite(ConfigVersion, ConfigFile, "Options", "Version")
