@@ -41,6 +41,9 @@ ShowSetupWindow(Callback) {
     SaveMethodInput := SetupWindow.Add(
         "DropDownList", "vSaveMethod x+ yp-3 Choose1 Center", ["Save", "Collect All and Save"])
 
+    CollectAllNote := SetupWindow.AddText("xm Disabled",
+        "Note: Collect All and Save will prompt you to stop audio before saving.")
+
     ; Add Save Button
     SaveButton := SetupWindow.Add("Button", "xm y+15 default", "Okay")
     SaveButton.OnEvent("Click", SaveSettings)
