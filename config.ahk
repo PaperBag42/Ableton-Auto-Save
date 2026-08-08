@@ -13,9 +13,9 @@ LoadConfigAndRun(Callback) {
     } else {
         SaveEveryMinutes := IniRead(ConfigFile, "Options", "SaveEveryMinutes")
         IdleSeconds := IniRead(ConfigFile, "Options", "IdleSeconds")
-        SaveMethod := IniRead(ConfigFile, "Options", "SaveMethod")
+        CollectAllAndSave := IniRead(ConfigFile, "Options", "CollectAllAndSave")
 
-        Callback(SaveEveryMinutes, IdleSeconds, SaveMethod)
+        Callback(SaveEveryMinutes, IdleSeconds, CollectAllAndSave)
     }
 }
 
@@ -56,15 +56,15 @@ ShowSetupWindow(Callback) {
     SaveSettings(*) {
         SaveEveryMinutes := SaveIntervalInput.Value
         IdleSeconds := IdleSecondsInput.Value
-        SaveMethod := SaveMethodInput.Value
+        CollectAllAndSave := SaveMethodInput.Value == 2
 
         ; Write selections to the INI file
         IniWrite(ConfigVersion, ConfigFile, "Options", "Version")
-        IniWrite(SaveIntervalInput.Value, ConfigFile, "Options", "SaveEveryMinutes")
-        IniWrite(IdleSecondsInput.Value, ConfigFile, "Options", "IdleSeconds")
-        IniWrite(SaveMethodInput.Value, ConfigFile, "Options", "SaveMethod")
+        IniWrite(SaveEveryMinutes, ConfigFile, "Options", "SaveEveryMinutes")
+        IniWrite(IdleSeconds, ConfigFile, "Options", "IdleSeconds")
+        IniWrite(CollectAllAndSave, ConfigFile, "Options", "CollectAllAndSave")
 
         SetupWindow.Destroy()
-        Callback(SaveEveryMinutes, IdleSeconds, SaveMethod)
+        Callback(SaveEveryMinutes, IdleSeconds, CollectAllAndSave)
     }
 }

@@ -3,11 +3,11 @@
 ; Set Title Match Mode to 2 (Matches if the string occurs anywhere in the title)
 SetTitleMatchMode(2)
 
-AutoSaveEveryInterval(SaveEveryMinutes, IdleSeconds, SaveMethod) {
-    SetTimer(() => AbletonAutoSave(IdleSeconds, SaveMethod), SaveEveryMinutes * 60 * 1000)
+AutoSaveEveryInterval(SaveEveryMinutes, IdleSeconds, CollectAll) {
+    SetTimer(() => AbletonAutoSave(IdleSeconds, CollectAll), SaveEveryMinutes * 60 * 1000)
 }
 
-AbletonAutoSave(IdleSeconds, SaveMethod) {
+AbletonAutoSave(IdleSeconds, CollectAll) {
     ; Wait until the user has been completely idle for IdleSeconds
     ; This loop pauses the script's save sequence if you are actively working
     while (A_TimeIdle < IdleSeconds * 1000) {
@@ -23,7 +23,7 @@ AbletonAutoSave(IdleSeconds, SaveMethod) {
     ToolTip("Auto-Saving Project...")
     SetTimer(() => ToolTip(), -2000)
 
-    if (SaveMethod == 1) {
+    if (!CollectAll) {
         Save()
     } else {
         CollectAllAndSave()
