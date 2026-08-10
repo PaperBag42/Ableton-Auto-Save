@@ -42,19 +42,19 @@ fn trigger_save(collect_all: bool) -> Result<()> {
         .context("Unable to initialize Enigo input controller")?;
 
     if collect_all {
-        enigo.key(Key::Alt, Direction::Press);
-        enigo.key(Key::Unicode('f'), Direction::Click);
-        enigo.key(Key::Alt, Direction::Release);
+        enigo.key(Key::Alt, Direction::Press)?;
+        enigo.key(Key::Unicode('f'), Direction::Click)?;
+        enigo.key(Key::Alt, Direction::Release)?;
         sleep(Duration::from_millis(200));
 
-        enigo.key(Key::Unicode('c'), Direction::Click);
+        enigo.key(Key::Unicode('c'), Direction::Click)?;
         sleep(Duration::from_millis(200));
 
-        enigo.key(Key::Return, Direction::Click);
+        enigo.key(Key::Return, Direction::Click)?;
     } else {
-        enigo.key(Key::Control, Direction::Press);
-        enigo.key(Key::Unicode('s'), Direction::Click);
-        enigo.key(Key::Control, Direction::Release);
+        enigo.key(Key::Control, Direction::Press)?;
+        enigo.key(Key::Unicode('s'), Direction::Click)?;
+        enigo.key(Key::Control, Direction::Release)?;
     }
 
     Ok(())
