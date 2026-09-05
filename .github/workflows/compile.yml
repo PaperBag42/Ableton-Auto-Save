@@ -16,11 +16,11 @@ jobs:
     - name: Ahk2Exe
       uses: CCCC-L/Action-Ahk2Exe@main
       with:
-        in: "Ableton Autosave.ahk"
-        out: "Ableton Autosave.exe"
+        in: "AbletonAutoSave.ahk"
+        out: "AbletonAutoSave.exe"
 
     - name: Release
       uses: actions/upload-artifact@master
       with:
-        name: "Ableton Autosave"
-        path: "Ableton Autosave.exe"
+        name: "AbletonAutoSave"
+        path: "AbletonAutoSave.exe"

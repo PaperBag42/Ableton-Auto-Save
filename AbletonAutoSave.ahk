@@ -6,11 +6,12 @@
 #Include "startup.ahk"
 #Include "menu.ahk"
 
-Persistent() ; Keeps the script running in the background
-
 Main()
 
 Main() {
+    A_IconTip := "Ableton Auto Save"
+    Persistent() ; Keeps the script running in the background
+
     SetupTrayMenu()
     LoadConfigAndRun(OnConfigLoaded)
 }
