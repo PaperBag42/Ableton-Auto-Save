@@ -23,11 +23,12 @@ SetupTrayMenu() {
     A_TrayMenu.Delete()
 
     A_TrayMenu.Add("Configure", (*) => Configure())
+    A_TrayMenu.Add("Exit", (*) => ExitApp())
     A_TrayMenu.Add("Uninstall", (*) => Uninstall())
 }
 
 Configure() {
-
+    ShowSetupWindow(AutoSaveEveryInterval)
 }
 
 Uninstall() {

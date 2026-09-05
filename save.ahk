@@ -1,10 +1,17 @@
 #Requires AutoHotkey v2.0
 
+global CurrentTimer := unset
+
 ; Set Title Match Mode to 2 (Matches if the string occurs anywhere in the title)
 SetTitleMatchMode(2)
 
 AutoSaveEveryInterval(SaveEveryMinutes, IdleSeconds, CollectAll) {
-    SetTimer(() => AbletonAutoSave(IdleSeconds, CollectAll), SaveEveryMinutes * 60 * 1000)
+    if (IsSet(CurrentTimer)) {
+        SetTimer(CurrentTimer, 0)
+    }
+
+    CurrentTimer := () => AbletonAutoSave(IdleSeconds, CollectAll)
+    SetTimer(CurrentTimer, SaveEveryMinutes * 60 * 1000)
 }
 
 AbletonAutoSave(IdleSeconds, CollectAll) {
