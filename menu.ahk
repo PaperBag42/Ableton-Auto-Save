@@ -13,7 +13,7 @@ SetupTrayMenu() {
 }
 
 Configure() {
-    ShowSetupWindow(AutoSaveEveryInterval)
+    ReconfigureAndRun(AutoSaveEveryInterval)
 }
 
 Uninstall() {
