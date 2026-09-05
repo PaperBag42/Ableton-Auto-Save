@@ -70,3 +70,7 @@ ShowSetupWindow(Callback) {
         Callback(SaveEveryMinutes, IdleSeconds, CollectAllAndSave)
     }
 }
+
+RemoveConfigFile() {
+    FileDelete(ConfigFile)
+}

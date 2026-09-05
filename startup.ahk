@@ -2,14 +2,19 @@
 
 #Include "appdir.ahk"
 
+AppDirExecutable := AppDir . "\AbletonAutoSave.exe"
+StartupLink := A_Startup . "\AbletonAutoSave.lnk"
+
 IsRunningFromStartup() {
     return A_WorkingDir == AppDir
 }
 
 AddToStartup() {
-    AppDirExecutable := AppDir . "\AbletonAutoSave.exe"
-    StartupLink := A_Startup . "\AbletonAutoSave.lnk"
-
     FileCopy(A_ScriptFullPath, AppDirExecutable, true)
     FileCreateShortcut(AppDirExecutable, StartupLink)
+}
+
+RemoveFromStartup() {
+    FileDelete(StartupLink)
+    FileDelete(AppDirExecutable)
 }
