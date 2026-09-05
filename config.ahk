@@ -11,7 +11,7 @@ DefaultConfig := Map(
 )
 
 LoadConfigAndRun(Callback) {
-    if IniRead(ConfigFile, "Options", "Version", 0) != ConfigVersion {
+    if IniRead(ConfigFile, "Meta", "Version", 0) != ConfigVersion {
         ShowSetupWindow(Callback, ExitApp, DefaultConfig)
     } else {
         Config := ReadConfigFile()
@@ -91,7 +91,7 @@ ReadConfigFile() {
 }
 
 WriteConfigFile(Config) {
-    IniWrite(ConfigVersion, ConfigFile, "Options", "Version")
+    IniWrite(ConfigVersion, ConfigFile, "Meta", "Version")
     for Key, Value in Config {
         IniWrite(Value, ConfigFile, "Options", Key)
     }
