@@ -1,13 +1,15 @@
 #Requires AutoHotkey v2.0
 
-AddToStartup() {
-    StartupExecutable := A_Startup . "\AbletonAutoSave.exe"
+#Include "appdir.ahk"
 
-    if !FileExist(StartupExecutable) {
-        try {
-            FileCopy(A_ScriptFullPath, StartupExecutable)
-        } catch as err {
-            MsgBox("Failed to create startup shortcut: " . err.Message, "Error", 16)
-        }
-    }
+IsRunningFromStartup() {
+    return A_WorkingDir == AppDir
+}
+
+AddToStartup() {
+    AppDirExecutable := AppDir . "\AbletonAutoSave.exe"
+    StartupLink := A_Startup . "\AbletonAutoSave.lnk"
+
+    FileCopy(A_ScriptFullPath, AppDirExecutable, true)
+    FileCreateShortcut(AppDirExecutable, StartupLink)
 }

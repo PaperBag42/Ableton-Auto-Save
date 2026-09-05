@@ -8,7 +8,11 @@
 Persistent() ; Keeps the script running in the background
 
 Main(SaveEveryMinutes, IdleSeconds, CollectAll) {
-    AddToStartup()
+    ; add to startup only after the user pressed OK
+    if !IsRunningFromStartup() {
+        AddToStartup()
+    }
+
     AutoSaveEveryInterval(SaveEveryMinutes, IdleSeconds, CollectAll)
 }
 
