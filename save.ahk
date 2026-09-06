@@ -15,15 +15,15 @@ AutoSaveEveryInterval(SaveEveryMinutes, IdleSeconds, CollectAll) {
 }
 
 AbletonAutoSave(IdleSeconds, CollectAll) {
-    ; Wait until the user has been completely idle for IdleSeconds
-    ; This loop pauses the script's save sequence if you are actively working
-    while (A_TimeIdle < IdleSeconds * 1000) {
-        Sleep(1000) ; Check your activity status again every 1 second
+    ; Check if Ableton Live is open
+    if !WinExist("Ableton Live") {
+        return
     }
 
-    ; Check if Ableton Live is the active window
-    if !WinActive("Ableton Live") {
-        return
+    ; Wait until the user has been completely idle for IdleSeconds
+    ; This loop pauses the script's save sequence if you are actively working
+    while (WinActive("Ableton Live") and A_TimeIdle < IdleSeconds * 1000) {
+        Sleep(1000)
     }
 
     ; Displays a non-intrusive message near your mouse cursor
@@ -38,18 +38,18 @@ AbletonAutoSave(IdleSeconds, CollectAll) {
 }
 
 Save() {
-    Send("^s")
+    ControlSend("^s", , "Ableton Live")
 }
 
 CollectAllAndSave() {
     ; 1. Open the File Menu (Alt + F)
-    Send("!f")
+    ControlSend("!f", , "Ableton Live")
     Sleep(200) ; Wait for menu to drop down
 
     ; 2. Press 'C' to select "Collect All and Save"
-    Send("c")
+    ControlSend("c", , "Ableton Live")
     Sleep(200) ; Wait for the file selection dialog box to pop up
 
     ; 3. Press Enter to confirm the file collection options
-    Send("{Enter}")
+    ControlSend("{Enter}", , "Ableton Live")
 }
