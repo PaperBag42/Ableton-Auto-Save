@@ -50,7 +50,7 @@ ShowSetupWindow(OnSuccess, OnCancel, CurrentConfig) {
     SaveMethodInput.OnEvent("Change", ShowCollectAllNote)
 
     ; Add Save Button
-    SaveButton := SetupWindow.Add("Button", "xm y+15 default", "Okay")
+    SaveButton := SetupWindow.Add("Button", "xm y+15 default", "OK")
     SaveButton.OnEvent("Click", SaveSettings)
     CancelButton := SetupWindow.Add("Button", "x+10 yp", "Cancel")
     CancelButton.OnEvent("Click", Cancel)

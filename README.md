@@ -12,7 +12,7 @@ This simple Windows program auto-saves the currenly open Ableton project every f
 
 Download and run the latest executable from the releases page. (TODO)
 
-Configure the program however you like and press "Okay". After that, the program will continue to run in the background.
+Configure the program however you like and press "OK". After that, the program will continue to run in the background.
 
 TODO
 
@@ -30,4 +30,4 @@ You can then choose to either stop playing audio and save, or cancel and save la
 
 ## Contributing
 
-Contributions and suggestions are welcome. To compile, install AutoHotKey and run AHK2EXE on `AbletonAutoSave.ahk`.
+Contributions and suggestions are welcome. To compile, install AutoHotkey and run AHK2EXE on `AbletonAutoSave.ahk`.
