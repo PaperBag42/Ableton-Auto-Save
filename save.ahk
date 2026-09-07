@@ -10,11 +10,11 @@ AutoSaveEveryInterval(SaveEveryMinutes, IdleSeconds, CollectAll) {
         SetTimer(CurrentTimer, 0)
     }
 
-    CurrentTimer := () => AbletonAutoSave(IdleSeconds, CollectAll)
+    CurrentTimer := () => AutoSave(IdleSeconds, CollectAll)
     SetTimer(CurrentTimer, SaveEveryMinutes * 60 * 1000)
 }
 
-AbletonAutoSave(IdleSeconds, CollectAll) {
+AutoSave(IdleSeconds, CollectAll) {
     ; Wait until the user has been completely idle for IdleSeconds
     ; This loop pauses the script's save sequence if you are actively working
     while (A_TimeIdle < IdleSeconds * 1000) {
