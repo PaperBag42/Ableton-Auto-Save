@@ -10,21 +10,21 @@ This simple Windows program auto-saves the currenly open Ableton project every f
 
 ## How To Use
 
-Download and run the latest executable from the releases page. (TODO)
+Download and run the latest executable from the [releases page](https://github.com/PaperBag42/Ableton-Auto-Save/releases).
 
 Configure the program however you like and press "OK". After that, the program will continue to run in the background.
 
-TODO
+![Setup Menu](_images/setup.png)
 
 If you change your mind about any of the configurations, simply right-click on the tray menu icon and choose "Configure" to change them. You can also exit or uninstall the program from this tray menu.
 
-TODO
+![Tray Menu](_images/tray.png)
 
 ### Note on "Collect All And Save"
 
 Apart from taking up more disk space, Collect All And Save won't work while Ableton is playing audio. Instead, it shows this window:
 
-TODO
+!["Action Will Stop Audio" Dialog Box](_images/action_will_stop_audio.png)
 
 You can then choose to either stop playing audio and save, or cancel and save later.
 
