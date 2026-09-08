@@ -1,0 +1,31 @@
+name: Attach Artifacts to Manual Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  upload-to-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to upload assets to the release
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Download Artifact from Push Workflow
+        uses: dawidd6/action-download-artifact@v9
+        with:
+          workflow: compile.yml
+          name: "AbletonAutoSave"  
+          commit: ${{ github.sha }} 
+          
+          path: artifacts/ 
+
+      - name: Upload Artifacts to Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Uploads all downloaded files directly to the published release
+          gh release upload ${{ github.event.release.tag_name }} artifacts/* --clobber

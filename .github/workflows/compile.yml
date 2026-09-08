@@ -1,4 +1,4 @@
-name: Install ahkv2 on Windows
+name: Build Installer
 
 on:
   push:
@@ -13,13 +13,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v7
 
-    - name: Ahk2Exe
+    - name: Build Base Executable
       uses: CCCC-L/Action-Ahk2Exe@main
       with:
         in: "AbletonAutoSave.ahk"
         out: "AbletonAutoSave.exe"
 
-    - name: Compile .ISS to .EXE Installer
+    - name: Build Installer
       uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
       with:
         path: setup.iss
