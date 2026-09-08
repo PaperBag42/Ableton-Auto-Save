@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0
 
-#Include "appdir.ahk"
-
 ConfigVersion := 1
-ConfigFile := AppDir . "\ableton_auto_save.ini"
+ConfigFile := A_WorkingDir . "\ableton_auto_save.ini"
 DefaultConfig := Map(
     "SaveEveryMinutes", 20,
     "IdleSeconds", 10,

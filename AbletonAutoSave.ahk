@@ -3,7 +3,6 @@
 
 #Include "config.ahk"
 #Include "save.ahk"
-#Include "startup.ahk"
 #Include "menu.ahk"
 
 Main()
@@ -13,14 +12,5 @@ Main() {
     Persistent() ; Keeps the script running in the background
 
     SetupTrayMenu()
-    LoadConfigAndRun(OnConfigLoaded)
-}
-
-OnConfigLoaded(SaveEveryMinutes, IdleSeconds, CollectAll) {
-    ; add to startup only after the user pressed OK
-    if !IsRunningFromStartup() {
-        AddToStartup()
-    }
-
-    AutoSaveEveryInterval(SaveEveryMinutes, IdleSeconds, CollectAll)
+    LoadConfigAndRun(AutoSaveEveryInterval)
 }
