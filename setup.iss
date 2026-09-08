@@ -14,6 +14,7 @@
 AppId={{81D4F4E8-5FC2-4623-9ABA-8FEC7BBECD5A}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
+OutputBaseFilename=AbletonAutoSave
 ;AppVerName={cm:NameAndVersion,{#EscapeConstArgument(MyAppName)},{#EscapeConstArgument(MyAppVersion)}}
 DefaultDirName={autopf}\{#MyAppName}
 UninstallDisplayIcon={app}\{#MyAppExeName}
