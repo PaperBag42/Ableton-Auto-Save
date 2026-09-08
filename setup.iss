@@ -3,7 +3,7 @@
 ; Non-commercial use only.
 
 #define MyAppName "Ableton Auto Save"
-#define MyAppVersion "0.0.1"
+#define MyAppVersion "1.0.0"
 #define MyAppExeName "AbletonAutoSave.exe"
 #define DoubleAmp(Value) StringChange(Value, "&", "&&")
 #define EscapeConstArgument(Value) StringChange(StringChange(StringChange(Value, "%", "%25"), ",", "%2c"), "}", "%7d")
