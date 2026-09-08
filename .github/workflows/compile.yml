@@ -19,8 +19,14 @@ jobs:
         in: "AbletonAutoSave.ahk"
         out: "AbletonAutoSave.exe"
 
+    - name: Compile .ISS to .EXE Installer
+      uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
+      with:
+        path: setup.iss
+        options: /O+
+
     - name: Release
       uses: actions/upload-artifact@master
       with:
         name: "AbletonAutoSave"
-        path: "AbletonAutoSave.exe"
+        path: "Output/AbletonAutoSave.exe"
